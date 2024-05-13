@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>film and tv fan page</title>
+</head>
+<body>
+       
+    {% for character in characters %}
+    {{ character.character_name}}<br>
+    {{ character.character_description}}<br>
+    {{ character.film_name }}<br>
+    {{ character.category_name }}<br>
+    {% endfor %}
+    
+</body>
+</html>
