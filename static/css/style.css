@@ -1,0 +1,44 @@
+html {
+  height: 100%;
+}
+
+body {
+    color: #fff;
+    height: 500px;
+    width: 100%;
+    font-family: "Poppins";
+    background: url('https://www.pluggedin.com/wp-content/uploads/2020/01/the-simpsons-review-image-1024x587.jpg')no-repeat;
+  }
+
+  .about {
+    background-color: #141414 !important;
+    color: white;
+    padding: 6rem 0;
+    font-size: large;
+  }
+
+  /* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+  .fixed-top-desktop-only {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+  }
+
+  .header-container {
+      padding-top: 164px;
+  }
+}
+
+/* pad the top a bit when navbar is collapsed on mobile */
+@media (max-width: 991px) {
+  .header-container {
+      padding-top: 116px;
+  }
+
+  body {
+      height: calc(100vh - 116px);
+  }
+}
