@@ -1,0 +1,9 @@
+{% extends ("base.html") %}
+{% block content %}
+
+{% for film in films %}
+{{ film.category_name}}<br>
+{{ film.film_description}}<br>
+{{ film.film_name }}<br>
+{% endfor %} 
+{% endblock %}

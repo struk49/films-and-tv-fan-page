@@ -29,6 +29,12 @@ def get_characters():
     return render_template("characters.html", characters=characters)
 
 
+@app.route("/get_films")
+def get_films():
+    films = list(mongo.db.films.find())
+    return render_template("films.html", films=films)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
