@@ -21,14 +21,16 @@
         </div>
     </form>
 </div>
-
 <ul class="collapsible">
     {% for character in characters %}
     <li>
         <div class="collapsible-header white-text light-blue darken-4 text-shadow">
             <div class="col s3">
                 <i class="fas fa-caret-down"></i>
-               
+                {% if session.user|lower == character.created_by|lower %}
+                <a href="" class="btn-small green accent-4">Done</a>
+                <a href="" class="btn-small light-blue lighten-1">Edit</a>
+                {% endif %}
             </div>
             <div class="col s9">
                 <strong>{{ character.character_name }}</strong>
@@ -36,16 +38,23 @@
             </div>
         </div>
         <div class="collapsible-body">
-            <strong>{{ character.category_name }}</strong>
-            <p>{{ character.character_film }}</p>
-            <p>{{ character.character_description }}</p>
-            <p><em>by:
-            </em></p>
+            <strong>{{ character.character_description }}</strong>
+            <br>
+           
+            <strong> Film: {{ character.character_film }}</strong>
+            <br>
+            <strong> Category: {{ character.category_name }}</strong>
+            <br>
+           
+            <strong><em>played by: {{ character.character_actor }}    
+            </em></strong>
+            <br>
+            <strong> created by: {{ character.film_creator }}</strong>
         </div>
     </li>
     {% endfor %}
 </ul>
 
-<h3 class="red-text text-darken-4 center-align">No Results Found</h3>
+
 
 {% endblock %}
