@@ -35,6 +35,12 @@ def get_films():
     return render_template("films.html", films=films)
 
 
+@app.route("/get_shows")
+def get_shows():
+    shows = list(mongo.db.shows.find())
+    return render_template("tv.html", shows=shows)
+
+
 @app.route("/get_categories")
 def get_categories():
     categories = list(mongo.db.categories.find().sort("category_name", 1))
