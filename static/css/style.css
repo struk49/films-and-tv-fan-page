@@ -35,6 +35,11 @@ body {
   text-align: center;
 }
 
+ .card-title h1{
+  font-weight: 900;
+  color: #e57373;
+}
+
 .card-image{
   width: 100%;
 }
