@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="light-blue-text text-darken-4 center-align">All Films</h3>
+<h3 class="black-text center-align">Favourite Films</h3>
 
 <div class="row card-panel grey lighten-5">
     <form action="" method="post" class="col s12">
         <div class="row valign-wrapper center-align">
             <div class="input-field col s12 m8">
-                <i class="fas fa-search prefix light-blue-text text-darken-4"></i>
+                <i class="fas fa-search prefix black-text"></i>
                 <input type="text" name="query" id="query" minlength="3" class="validate" required>
                 <label for="query">Search Films</label>
             </div>
             <div class="col s12 m4">
-                <a href="{{ url_for('get_films') }}" class="red btn text-shadow">Reset</a>
-                <button type="submit" class="light-blue darken-1 btn text-shadow">
+                <a href="{{ url_for('get_films') }}" class="black btn text-shadow">Reset</a>
+                <button type="submit" class="red lighten-2 btn text-shadow">
                     <i class="fas fa-search left"></i> Search
                 </button>
             </div>
@@ -22,32 +22,27 @@
 </div>
 
 {% if films|length > 0 %}
-<ul class="collapsible">
+<div class="row">
     {% for film in films %}
-    <li>
-        <div class="collapsible-header white-text light-blue darken-4 text-shadow">
-            <div class="col s3">
-                <i class="fas fa-caret-down"></i>
-                {% if session.user|lower == film.created_by|lower %}
-                <a href="" class="btn-small green accent-4">Done</a>
-                <a href="" class="btn-small light-blue lighten-1">Edit</a>
-                {% endif %}
-            </div>
-            <div class="col s9">
-                
-                <strong> {{ film.film_name }}</strong>
-               
-            </div>
+    <div class="col s12 m6">
+        <div class="card grey lighten-3">
+          <div class="card-content black-text">
+            <span class="card-title">{{ film.film_name }}</span>
+            <br>
+              
+              <strong>Category: {{ film.category_name }}</strong>
+              <br>
+              
+              <strong>Description: {{ film.film_description }}</strong>
+              <br>
+              <strong>Directed by: {{ film.film_creator }}</strong>
+          </div>
+          <a href="" class="black btn-small text-shadow">Delete</a>
+          <a href="" class="btn-small red lighten-2">Edit</a>
         </div>
-        <div class="collapsible-body">
-            <strong>{{ film.category_name }}</strong>
-            <p>{{ film.film_description }}</p>
-            <p><em>by: {{ film.film_creator }}</em></p>
-        </div>
-        
-    </li>
-    {% endfor %}
-</ul>
+      </div>
+      {% endfor %}
+    </div>
 {% else %}
 <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
 {% endif %}
