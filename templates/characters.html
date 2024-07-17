@@ -4,23 +4,8 @@
 
 <h3 class="black-text center-align">Favourite Characters</h3>
 
-<div class="row card-panel grey lighten-5">
-    <form action="" method="post" class="col s12">
-        <div class="row valign-wrapper center-align">
-            <div class="input-field col s12 m8">
-                <i class="fas fa-search prefix black-text"></i>
-                <input type="text" name="query" id="query" minlength="3" class="validate" required>
-                <label for="query">Search Tasks</label>
-            </div>
-            <div class="col s12 m4">
-                <a href="{{ url_for('get_characters') }}" class="black btn text-shadow">Reset</a>
-                <button type="submit" class=" red lighten-2 btn text-shadow">
-                    <i class="fas fa-search left"></i> Search
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+
+            
 <div class="row">
     {% for character in characters %}
     <div class="col s12 m6">

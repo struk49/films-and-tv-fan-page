@@ -22,6 +22,13 @@ mongo = PyMongo(app)
 def home():
     return render_template("index.html")
 
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    characters = list(mongo.db.characters.find({"$text": {"$search": query}}))
+    return render_template("characters.html", characters=characters)
+
     
 @app.route("/get_characters")
 def get_characters():
