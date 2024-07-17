@@ -3,7 +3,7 @@
 
 body {
   color: black;
-  background-color: #f4ecec;
+  background-color: #e0e0e0 ;
 
 }
 
@@ -31,10 +31,15 @@ body {
 .card-title{
   
   font-weight: 900;
-  color: red;
+  color: #e57373;
   text-align: center;
 }
 
 .card-image{
   width: 100%;
+}
+
+.footer{
+  background-color: black ;
+  color: #fff;
 }
