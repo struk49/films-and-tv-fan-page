@@ -140,12 +140,49 @@ def add_show():
             "based_on": request.form.get("based_on"),
             "posted_by": session["user"]
         }
-        mongo.db.shows.insert_one(task)
+        mongo.db.shows.insert_one(show)
         flash("show successfully added")
         return redirect(url_for('get_shows'))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_show.html", categories=categories)
+
+
+@app.route("/add_film", methods=["GET", "POST"])
+def add_film():
+    if request.method == "POST":
+        show = {
+            "category_name": request.form.get("category_name"),
+            "film_name": request.form.get("film_name"),
+            "film_description": request.form.get("film_description"),
+            "film_creator": request.form.get("film_creator"),
+        }
+        mongo.db.films.insert_one(film)
+        flash("film successfully added")
+        return redirect(url_for('get_films'))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_film.html", categories=categories)
+
+
+@app.route("/add_character", methods=["GET", "POST"])
+def add_character():
+    if request.method == "POST":
+        show = {
+            "category_name": request.form.get("category_name"),
+            "character_name": request.form.get("character_name"),
+            "character_description": request.form.get("character_description"),
+            "character_film": request.form.get("character_film"),
+            "character_actor": request.form.get("character_actor"),
+            "film_creator": request.form.get("film_creator"),
+        }
+        mongo.db.characters.insert_one(character)
+        flash("character successfully added")
+        return redirect(url_for('get_character'))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_characters.html", categories=categories)
+
 
 
 if __name__ == "__main__":
