@@ -129,6 +129,25 @@ def signout():
     return redirect(url_for("signin"))
 
 
+@app.route("/add_show", methods=["GET", "POST"])
+def add_show():
+    if request.method == "POST":
+        show = {
+            "category_name": request.form.get("category_name"),
+            "show_name": request.form.get("show_name"),
+            "show_description": request.form.get("show_description"),
+            "show_producer": request.form.get("show_producer"),
+            "based_on": request.form.get("based_on"),
+            "posted_by": session["user"]
+        }
+        mongo.db.shows.insert_one(task)
+        flash("show successfully added")
+        return redirect(url_for('get_shows'))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("add_show.html", categories=categories)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
