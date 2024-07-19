@@ -147,6 +147,36 @@ def add_show():
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_show.html", categories=categories)
 
+@app.route("/edit_show/<show_id>", methods=["GET", "POST"])
+def edit_show(show_id):
+    if request.method == "POST":
+        
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "show_name": request.form.get("show_name"),
+            "show_description": request.form.get("show_description"),
+            "show_producer": request.form.get("show_producer"),
+            "based_on": request.form.get("based_on"),
+            "posted_by": session["user"]
+        }
+        mongo.db.shows.update_one({"_id": ObjectId(show_id)}, {"$set": submit})
+        flash("show successfully updated")
+        # coll.update_one(
+#    {"nationality": "american"},
+#    {"$set": {"hair_color": "maroon"}}
+
+    show = mongo.db.shows.find_one({"_id": ObjectId(show_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_show.html", show=show, categories=categories)
+
+
+@app.route("/delete_show/<show_id>")
+def delete_show(show_id):
+    mongo.db.shows.delete_one({"_id": ObjectId(show_id)})
+    flash("show successfully deleted")
+    return redirect(url_for('get_shows'))
+
+
 
 @app.route("/add_film", methods=["GET", "POST"])
 def add_film():
@@ -182,6 +212,7 @@ def add_character():
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_characters.html", categories=categories)
+
 
 
 @app.route("/add_category", methods=["GET", "POST"])
