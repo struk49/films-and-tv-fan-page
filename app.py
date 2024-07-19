@@ -181,7 +181,7 @@ def delete_show(show_id):
 @app.route("/add_film", methods=["GET", "POST"])
 def add_film():
     if request.method == "POST":
-        show = {
+        film = {
             "category_name": request.form.get("category_name"),
             "film_name": request.form.get("film_name"),
             "film_description": request.form.get("film_description"),
@@ -227,7 +227,7 @@ def delete_film(film_id):
 @app.route("/add_character", methods=["GET", "POST"])
 def add_character():
     if request.method == "POST":
-        show = {
+        character = {
             "category_name": request.form.get("category_name"),
             "character_name": request.form.get("character_name"),
             "character_description": request.form.get("character_description"),
@@ -237,7 +237,7 @@ def add_character():
         }
         mongo.db.characters.insert_one(character)
         flash("character successfully added")
-        return redirect(url_for('get_character'))
+        return redirect(url_for('get_characters'))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_characters.html", categories=categories)
