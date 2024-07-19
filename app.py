@@ -195,6 +195,35 @@ def add_film():
     return render_template("add_film.html", categories=categories)
 
 
+@app.route("/edit_film/<film_id>", methods=["GET", "POST"])
+def edit_film(film_id):
+    if request.method == "POST":
+        
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "film_name": request.form.get("film_name"),
+            "film_description": request.form.get("film_description"),
+            "film_creator": request.form.get("film_creator"),
+        }
+        mongo.db.films.update_one({"_id": ObjectId(film_id)}, {"$set": submit})
+        flash("film successfully updated")
+        # coll.update_one(
+#    {"nationality": "american"},
+#    {"$set": {"hair_color": "maroon"}}
+
+    film = mongo.db.films.find_one({"_id": ObjectId(film_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_film.html", film=film, categories=categories)
+
+
+@app.route("/delete_film/<film_id>")
+def delete_film(film_id):
+    mongo.db.films.delete_one({"_id": ObjectId(film_id)})
+    flash("film successfully deleted")
+    return redirect(url_for('get_films'))
+
+
+
 @app.route("/add_character", methods=["GET", "POST"])
 def add_character():
     if request.method == "POST":
