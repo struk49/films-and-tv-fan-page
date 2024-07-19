@@ -243,6 +243,37 @@ def add_character():
     return render_template("add_characters.html", categories=categories)
 
 
+@app.route("/edit_character/<character_id>", methods=["GET", "POST"])
+def edit_character(character_id):
+    if request.method == "POST":
+        
+        submit = {
+            "category_name": request.form.get("category_name"),
+            "character_name": request.form.get("character_name"),
+            "character_description": request.form.get("character_description"),
+            "character_film": request.form.get("character_film"),
+            "character_actor": request.form.get("character_actor"),
+            "film_creator": request.form.get("film_creator"),
+        }
+        mongo.db.characters.update_one({"_id": ObjectId(character_id)}, {"$set": submit})
+        flash("character successfully updated")
+        # coll.update_one(
+#    {"nationality": "american"},
+#    {"$set": {"hair_color": "maroon"}}
+
+    character = mongo.db.characters.find_one({"_id": ObjectId(character_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_characters.html", character=character, categories=categories)
+
+
+@app.route("/delete_character/<character_id>")
+def delete_character(character_id):
+    mongo.db.characters.delete_one({"_id": ObjectId(character_id)})
+    flash("character successfully deleted")
+    return redirect(url_for('get_characters'))
+
+
+
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
